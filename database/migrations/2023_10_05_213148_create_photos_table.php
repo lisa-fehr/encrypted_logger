@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('concern_id');
+            $table->longText('img');
             $table->text('description')->nullable();
             $table->timestamps();
         });

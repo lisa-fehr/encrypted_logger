@@ -9,9 +9,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Tag extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
 
     public function concerns(): BelongsToMany
     {
         return $this->belongsToMany(Concern::class, ConcernTag::class);
+    }
+
+    public function count()
+    {
+        return $this->concerns()->count();
     }
 }

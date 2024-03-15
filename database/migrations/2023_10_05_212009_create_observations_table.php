@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->boolean('active')->default(true);
+            $table->boolean('default')->default(false);
             $table->dateTime('started_at')->nullable();
             $table->dateTime('ended_at')->nullable();
             $table->timestamps();

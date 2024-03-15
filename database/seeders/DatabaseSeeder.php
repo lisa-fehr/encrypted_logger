@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
             ObservationSeeder::class,
             TagSeeder::class,
             ConcernSeeder::class,
-            ActionSeeder::class
+            ActionSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
