@@ -10,14 +10,14 @@
                 <ul class="list-disc list-inside">
                     @forelse(App\Models\Observation::where('active', true)->get() as $observation)
                         <li class="flex py-2 justify-between">
-                            <form action="{{ route('admin.observation.update', $observation) }}" method="POST" class="w-1/4">
+                            <form action="{{ route('admin.observation.update', $observation) }}" method="POST" class="w-1/4 sm:w-1/3">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="active" value="0">
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">Deactivate</button>
+                                <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 border border-amber-700 rounded">Deactivate</button>
                             </form>
-                            <a class="text-orange-400 w-1/2" href="{{route('admin.observation.show', $observation)}}">{{$observation->name}}</a>
-                            <span class="text-cyan-500 w-1/4">{{$observation->created_at->diffForHumans()}}</span>
+                            <a class="text-orange-400 w-1/2 sm:w-3/5" href="{{route('admin.observation.show', $observation)}}">{{$observation->name}}</a>
+                            <span class="text-cyan-500 w-1/4 sm:w-1/5">{{$observation->created_at->diffForHumans()}}</span>
                         </li>
                     @empty
                         <li>None</li>
@@ -40,7 +40,7 @@
                             <form action="{{ route('admin.tag.delete', $tag) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">Delete</button>
+                                <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 border border-amber-700 rounded">Delete</button>
                             </form>
                             <a class="px-2 text-orange-400" href="{{route('admin.tag.show', $tag)}}">{{$tag->name}}</a> ({{$tag->count()}})
                         </li>
