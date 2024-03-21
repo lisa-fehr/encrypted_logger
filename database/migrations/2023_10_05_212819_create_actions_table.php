@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('actions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->bigInteger('concern_id')->nullable();
             $table->text('description');
             $table->boolean('active')->default(true);

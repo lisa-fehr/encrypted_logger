@@ -42,6 +42,7 @@ class ConcernController extends BaseController
 
             foreach ($files as $key => $file) {
                 Photo::create([
+                    'user_id' => $request->user()->id,
                     'img' => $file,
                     'concern_id' => $concern->id
                 ]);

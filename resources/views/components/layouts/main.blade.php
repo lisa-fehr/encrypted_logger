@@ -13,6 +13,9 @@
 
     <body class="antialiased">
         <div class="relative justify-between min-h-screen bg-orange-100">
+            @if(!Request::is('home'))
+            <a href="{{ route('home') }}" class="flex w-1/4 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 border border-amber-700 rounded m-2">&lt; Back</a>
+            @endif
             {{ $slot }}
         </div>
     </body>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class Action extends Model
@@ -33,5 +34,12 @@ class Action extends Model
         } catch(DecryptException $e) {
             return $value;
         }
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Action $action) {
+            $action->user_id = Auth::user()->id;
+        });
     }
 }

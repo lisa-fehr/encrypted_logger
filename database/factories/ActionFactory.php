@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
 
@@ -18,6 +19,7 @@ class ActionFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::first(),
             'description' => fake()->sentence(),
             'active' => true,
             'started_at' => Date::now(),

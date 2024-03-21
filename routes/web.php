@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConcernController;
 use App\Http\Controllers\ConcernTagController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\TagController;
@@ -22,9 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['verified', 'auth']);
+Route::get('/home', [HomeController::class, 'show'])->name('home')->middleware(['verified', 'auth']);
 
 Route::middleware(['verified', 'auth'])
     ->name('admin.tag.')

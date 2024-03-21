@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('concerns', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->bigInteger('observation_id');
             $table->text('description')->nullable();
             $table->longText('photo')->nullable();
