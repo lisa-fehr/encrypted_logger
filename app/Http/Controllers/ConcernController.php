@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessImage;
 use App\Models\Concern;
 use App\Models\Photo;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
 
 class ConcernController extends BaseController
 {
@@ -25,41 +24,28 @@ class ConcernController extends BaseController
 
     function store(Request $request) : \Illuminate\Http\RedirectResponse
     {
+        if($this->hasFileError($request)) {
+            return back()
+                ->withInput($request->input())
+                ->withErrors(['msg' => 'File is too large. Max is:'. ini_get("upload_max_filesize")]);
+        }
 
         $concern = Concern::create(
             $request->except('files')
         );
 
         if($request->hasFile('files')) {
-            $files = [];
             foreach($request->file('files') as $key => $file)
             {
                 $fileName = time().'-'.$file->getClientOriginalName();
-                $uploadedFile = imagecreatefromstring($file->get());
-                
-                
-                $size = getimagesize($file->path());
 
-                $width = (int) ceil($size[0] / 8);
-                $height = (int) ceil($size[1] / 8);
-
-                $thumb = imagecreatetruecolor($width, $height);
-                imagecopyresampled($thumb, $uploadedFile, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-                imagejpeg($thumb, 'storage/app/'.$fileName, 75);
-                imagedestroy($thumb);
-
-                $img = Crypt::encrypt(file_get_contents('storage/app/'.$fileName));
-                Storage::put($fileName, $img);
-                $files[] = $fileName;
-            }
-
-            foreach ($files as $key => $file) {
                 Photo::create([
-                    'img' => $file,
+                    'img' => $fileName,
                     'concern_id' => $concern->id
                 ]);
-            }
 
+                ProcessImage::dispatch($file->path(), $fileName);
+            }
         }
 
         return back()->with('status', 'Created');
@@ -77,5 +63,15 @@ class ConcernController extends BaseController
 
         $concern->delete();
         return back()->with('status', 'Deleted');
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    private function hasFileError(Request $request) : bool
+    {
+
+        return ! empty($request->files) && ! $request->hasFile('files');
     }
 }
