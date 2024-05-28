@@ -6,3 +6,8 @@ A mobile friendly admin tool to store observed events/concerns with descriptions
 - Add actions that are independent but could relate to an active concern.
 
 Highlight their frequency and make it measurable. 
+
+### Requirements
+PHP 8.1 and up
+
+Laravel 10
