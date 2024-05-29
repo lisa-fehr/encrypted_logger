@@ -25,7 +25,7 @@ class Tag extends Model
     protected static function booted(): void
     {
         static::creating(function (Tag $tag) {
-            $tag->user_id = Auth::user()->id;
+            $tag->user_id = Auth::user() ? Auth::user()->id : 0;
         });
     }
 }

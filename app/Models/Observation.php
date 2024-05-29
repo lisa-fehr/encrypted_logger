@@ -49,7 +49,7 @@ class Observation extends Model
     protected static function booted(): void
     {
         static::creating(function (Observation $observation) {
-            $observation->user_id = Auth::user()->id;
+            $observation->user_id = Auth::user() ? Auth::user()->id : 0;
         });
     }
 }

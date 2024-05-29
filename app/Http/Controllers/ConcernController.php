@@ -72,6 +72,6 @@ class ConcernController extends BaseController
     private function hasFileError(Request $request) : bool
     {
 
-        return ! empty($request->files) && ! $request->hasFile('files');
+        return $request->files->count() > 0 && ! $request->hasFile('files');
     }
 }

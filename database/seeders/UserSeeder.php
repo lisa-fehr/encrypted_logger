@@ -12,10 +12,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'email' => 'admin@test.com',
-            'password' => bcrypt('admin')
-        ]);
+        try {
+            User::factory()->create([
+                'email' => 'admin@test.com',
+                'password' => bcrypt('admin')
+            ]);
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
 
     }
 }
