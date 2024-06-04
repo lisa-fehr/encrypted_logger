@@ -5,7 +5,7 @@
 - GD Library *
 
 > [!IMPORTANT]
-> Currently dependent on the APP_KEY. Keep a copy from your .env file after running `php artisan key:generate`.
+> Currently dependent on the `APP_KEY`. Keep a copy from your .env file after running `php artisan key:generate` or the data will not decrypt.
 
 ## About
 Ideal for apps on shared servers. Encrypt the data and photos to prevent viewing outside the app in the file directory or database.
